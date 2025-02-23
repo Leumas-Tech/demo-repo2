@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Debugging Portal</title>
+</head>
+<body>
+    <h1>Welcome to the Admin Debugging Portal</h1>
+    <button id="testPublic">Test Public Endpoint</button>
+    <button id="testPrivate">Test Private Endpoint</button>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('testPublic').addEventListener('click', async () => {
+            const res = await fetch('/public');
+            const data = await res.text();
+            document.getElementById('response').innerText = data;
+        });
+
+        document.getElementById('testPrivate').addEventListener('click', async () => {
+            // Normally, you'd need a valid JWT token to access this. For simplicity, let's assume you've fetched a token previously.
+            const token = 'YOUR_JWT_TOKEN';  
+            const res = await fetch('/private', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = await res.text();
+            document.getElementById('response').innerText = data;
+        });
+    </script>
+</body>
+</html>
